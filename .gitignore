@@ -1,0 +1,91 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.env/
+env/
+ENV/
+.venv/
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# =========================
+# Jupyter Notebook
+# =========================
+.ipynb_checkpoints
+
+# =========================
+# Data files
+# =========================
+*.csv
+*.tsv
+*.data
+*.dat
+
+# Large datasets
+data/
+datasets/
+
+# =========================
+# Model files
+# =========================
+*.pth
+*.pt
+*.ckpt
+*.h5
+*.pkl
+*.joblib
+*.onnx
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# LaTeX
+# =========================
+*.aux
+*.bbl
+*.blg
+*.brf
+*.fls
+*.fdb_latexmk
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.nav
+*.snm
+*.vrb
+*.sty
+*.tex
+# Build folders
+latex_build/
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# IDE
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# Misc
+# =========================
+*.tmp
+*.swp
