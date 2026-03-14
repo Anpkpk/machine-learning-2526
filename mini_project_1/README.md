@@ -1,4 +1,4 @@
-# Hệ Thống Gợi Ý Phim Hybrid (Movie Recommendation System)
+# Hệ Thống Gợi Ý Phim (Movie Recommendation System)
 
 Đây là một ứng dụng Desktop (GUI) gợi ý phim được xây dựng bằng Python. Hệ thống sử dụng Mô hình Hồi quy tuyến tính - Linear Regression để đưa ra các đề xuất phim cá nhân hóa dựa trên sở thích về thể loại và năm phát hành của người dùng.
 
