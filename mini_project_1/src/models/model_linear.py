@@ -102,33 +102,20 @@ def recommend_movies(fav_genres=[], fav_year=None, top_k=5, alpha=0.8):
     - alpha thấp (VD: 0.2): Ưu tiên phim có rating chung cao (từ mô hình LR).
     """
     
-    # 1. Build user vector và định dạng lại thành ma trận 2D (1, n_features) cho hàm cosine_similarity
     user_vector = build_user_profile(fav_genres, fav_year).reshape(1, -1) 
-    
-    # 2. Lấy features của tất cả phim
     X_movies = movies[feature_cols].to_numpy()  
-    
-    # 3. Tính độ tương đồng giữa "Sở thích" và "Đặc trưng phim" (Giá trị từ 0 đến 1)
+
     similarity_scores = cosine_similarity(user_vector, X_movies)[0]
-    
-    # 4. Dự đoán điểm chất lượng chung của phim từ mô hình Linear Regression
     lr_scores = model_linear.predict(X_movies)
-    
-    # 5. Chuẩn hóa lr_scores về khoảng [0, 1] để dễ dàng cộng gộp với similarity_scores
-    # Giả sử rating trong dataset MovieLens từ 1 đến 5
     lr_scores_normalized = (lr_scores - 1) / 4.0 
-    
-    # 6. Tính điểm cuối cùng (Kết hợp cá nhân hóa và chất lượng chung)
     final_scores = (alpha * similarity_scores) + ((1 - alpha) * lr_scores_normalized)
-    
-    # 7. Tạo DataFrame kết quả
+
     recs = pd.DataFrame({
         "title": movies["title"],
         "similarity": similarity_scores, 
         "lr_prediction": lr_scores,     
         "final_score": final_scores
     })
-    
-    # 8. Sắp xếp theo final_score giảm dần và trả về Top-K
+
     recs_sorted = recs.sort_values("final_score", ascending=False).head(top_k)
     return recs_sorted
