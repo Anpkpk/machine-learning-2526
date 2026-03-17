@@ -17,25 +17,35 @@
 
 ## Nguyên lý hoạt động (Thuật toán Hybrid)
 
-Hệ thống tính toán **điểm số cuối cùng (Final Score)** cho mỗi bộ phim dựa trên công thức lai:
+Hệ thống tính toán **điểm số cuối cùng (Final Score)** cho mỗi bộ phim dựa trên điểm số mà cộng đồng đánh giá:
 
-### 1. Content-Based (Độ tương đồng)
-- Tạo một **user_vector** dựa trên **Thể loại** và **Năm** mà người dùng chọn.
-- Tính toán **cosine_similarity** giữa `user_vector` và `movie_vector` của tất cả các phim trong cơ sở dữ liệu.
+### 1. Sử dụng hồi quy tuyến tính (Linear Regression) để dự đoán chất lượng
+- Mô hình học mối quan hệ giữa đặc trưng của phim (thể loại, năm phát hành) và điểm đánh giá (rating) từ các người dùng trong tập dữ liệu.
 
-### 2. Linear Regression (Chất lượng dự đoán)
 - Mô hình hồi quy tuyến tính được huấn luyện trên tập dữ liệu đánh giá (**ratings**) để dự đoán điểm trung bình mà cộng đồng sẽ dành cho một bộ phim dựa trên đặc trưng của nó.
 ```math
 \text{Rating}_{\text{pred}} = \beta_0 + \beta_1 \cdot \text{Genre}_1 + \beta_2 \cdot \text{Genre}_2 + \dots + \beta_k \cdot \text{Genre}_k + \beta_{\text{year}} \cdot \text{Year}_{\text{scaled}}
 ```
+- **Rating** được chuẩn hóa trên thang 5.  
 
-### 3. Kết hợp (Hybrid)
+- Mục đích: Tìm ra những thể loại hoặc thời kỳ phim nào thường được đánh giá cao. Ví dụ: Phim Drama năm 1990 có xu hướng được rate cao. Mô hình này đóng vai trò như một bộ lọc chất lượng.
+
+### 2. Phân tích độ tương đồng nội dung bằng Cosine Similarity
+- Người dùng và Phim đều được biểu diễn dưới dạng các vector số học trong cùng một không gian đặc trưng (bao gồm các cột one-hot của Thể loại và giá trị scale của Năm).
+
+- Cosine Similarity sẽ đo góc giữa hai vector này. Góc càng nhỏ (Cosine tiến về 1), bộ phim đó càng sát với cấu hình sở thích mà người dùng đã nhập.
+
+### 3. Kết hợp
+- Kết hợp hai chỉ số trên bằng một siêu tham số α (từ 0 đến 1) để cân bằng giữa "sở thích cá nhân" và "độ hay chung của phim".
 - Điểm số cuối cùng được tính bằng công thức:
 ```math
 \text{Final\_Score} = (\alpha \times \text{Similarity}) + ((1 - \alpha) \times \text{Normalized\_LR\_Score})
 ```
 
-- Trong đó, **α** là trọng số ưu tiên tính cá nhân hóa.
+- Trong đó, **α** là trọng số ưu tiên tính cá nhân hóa (đang sử dụng **α=0.8**).
+    * Nếu α = 1: Hệ thống chỉ quan tâm phim có đúng thể loại/năm không, bỏ qua hoàn toàn việc phim đó hay hay dở.
+
+    * Nếu α = 0: Hệ thống phớt lờ sở thích người dùng, chỉ gợi ý các phim có rating chung cao nhất (Top Trending).
 
 ## Hướng dẫn Cài đặt & Sử dụng
 ### 1. Chuẩn bị môi trường
