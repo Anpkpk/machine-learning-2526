@@ -25,15 +25,15 @@ Hệ thống tính toán **điểm số cuối cùng (Final Score)** cho mỗi b
 
 ### 2. Linear Regression (Chất lượng dự đoán)
 - Mô hình hồi quy tuyến tính được huấn luyện trên tập dữ liệu đánh giá (**ratings**) để dự đoán điểm trung bình mà cộng đồng sẽ dành cho một bộ phim dựa trên đặc trưng của nó.
-$$
+```math
 \text{Rating}_{\text{pred}} = \beta_0 + \beta_1 \cdot \text{Genre}_1 + \beta_2 \cdot \text{Genre}_2 + \dots + \beta_k \cdot \text{Genre}_k + \beta_{\text{year}} \cdot \text{Year}_{\text{scaled}}
-$$
+```
 
 ### 3. Kết hợp (Hybrid)
 - Điểm số cuối cùng được tính bằng công thức:
-$$
+```math
 \text{Final\_Score} = (\alpha \times \text{Similarity}) + ((1 - \alpha) \times \text{Normalized\_LR\_Score})
-$$
+```
 
 - Trong đó, **α** là trọng số ưu tiên tính cá nhân hóa.
 
