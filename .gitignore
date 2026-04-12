@@ -30,6 +30,8 @@ dist/
 *.tsv
 *.data
 *.dat
+DATASET/
+data.zip
 
 # Large datasets
 data/
