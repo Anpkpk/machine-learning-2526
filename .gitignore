@@ -33,6 +33,7 @@ dist/
 DATASET/
 data.zip
 
+lab5/*.zip
 # Large datasets
 data/
 datasets/
