@@ -37,6 +37,8 @@ lab5/*.zip
 # Large datasets
 data/
 datasets/
+# GK/
+*.png
 
 # =========================
 # Model files
