@@ -38,6 +38,7 @@ lab5/*.zip
 data/
 datasets/
 # GK/
+project_ck/
 *.png
 
 # =========================
